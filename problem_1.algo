@@ -1,0 +1,73 @@
+
+// *****************************************************************
+// *********************** PROBLEM 1 *******************************
+// *****************************************************************
+
+ALGORITHM sum_of_distinct_elements
+
+    // Déclaration des variables
+VAR 
+    set1, set2 : ARRAY OF INTEGER 
+    sum, i, j : INTEGER 
+BEGIN
+    // Initialisation des ensembles avec les valeurs données
+    set1 := [3, 1, 7, 9]
+    set2 := [2, 4, 1, 9, 3]
+    sum := 0 // Initialisation de la somme à zéro
+    
+    //  Vérifier les éléments uniques de set1 qui ne sont pas dans set2
+    FOR i FROM 0 TO LENGTH(set1) - 1 DO
+        // Vérifier si set1[i] est présent dans set2
+        IF NOT (set1[i] IN set2) THEN
+            sum := sum + set1[i] // Ajouter à la somme s'il est unique
+        END_IF
+    END_FOR
+    
+    //  Vérifier les éléments uniques de set2 qui ne sont pas dans set1
+    FOR j FROM 0 TO LENGTH(set2) - 1 DO
+        // Vérifier si set2[j] est présent dans set1
+        IF NOT (set2[j] IN set1) THEN
+            sum := sum + set2[j] // Ajouter à la somme s'il est unique
+        END_IF
+    END_FOR
+    
+    //  Afficher la somme totale des éléments distincts
+    Write(sum) // Résultat attendu : 13 (car les éléments distincts sont {4, 7, 2})
+END
+
+// Solution alternative en fusionant les deux tableaux (si la taille du tableau nous le permet)
+
+ALGORITHM sum_of_distinct_elements
+VAR
+    set1, set2, mergedSet : ARRAY OF INTEGER
+    freq : DICTIONARY OF INTEGER // Dictionnaire pour stocker la fréquence de chaque élément
+    i, sum : INTEGER
+BEGIN
+    // Initialisation des ensembles
+    set1 := [3, 1, 7, 9]
+    set2 := [2, 4, 1, 9, 3]
+    
+    // Fusionner les deux ensembles en un seul tableau
+    mergedSet := set1 + set2 // Concaténer les deux tableaux
+    sum := 0 // Initialisation de la somme à zéro
+    freq := {} // Initialisation du dictionnaire de fréquence
+    
+    //  Calculer la fréquence de chaque élément dans mergedSet
+    FOR i FROM 0 TO LENGTH(mergedSet) - 1 DO
+        IF mergedSet[i] IN freq THEN
+            freq[mergedSet[i]] := freq[mergedSet[i]] + 1 // Incrémenter la fréquence
+        ELSE
+            freq[mergedSet[i]] := 1 // Initialiser à 1 si l'élément n'existe pas encore
+        END_IF
+    END_FOR
+    
+    //  Ajouter à la somme uniquement les éléments qui apparaissent une seule fois
+    FOR i FROM 0 TO LENGTH(mergedSet) - 1 DO
+        IF freq[mergedSet[i]] = 1 THEN
+            sum := sum + mergedSet[i]
+        END_IF
+    END_FOR
+    
+    //  Affichage du résultat
+    Write(sum) // Résultat attendu : 13
+END

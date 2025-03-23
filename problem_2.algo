@@ -1,0 +1,99 @@
+
+//*********************************************************************
+//************************ PROBLEM 2 **********************************
+//*********************************************************************
+
+// **************************** Procédure ****************************
+
+ALGORITHM DotProductProc
+VAR
+    v1, v2: ARRAY[50] OF INTEGER  // Vecteurs
+    n, ps: INTEGER  // Taille des vecteurs et produit scalaire
+    i: INTEGER
+
+    //  PROCÉDURE qui calcule le produit scalaire et met à jour `ps`
+PROCEDURE dot_product_proc(v1, v2, n, VAR ps)
+    ps := 0
+    FOR i FROM 0 TO n-1 DO
+        ps := ps + (v1[i] * v2[i])
+    END_FOR
+END_PROCEDURE
+
+BEGIN
+    //  Lecture de la taille du vecteur
+    Write("Entrez la taille des vecteurs : ")
+    Read(n)
+
+    //  Lecture des éléments du premier vecteur
+    Write("Entrez les éléments du premier vecteur : ")
+    FOR i FROM 0 TO n-1 DO
+        Read(v1[i])
+    END_FOR
+
+    //  Lecture des éléments du second vecteur
+    Write("Entrez les éléments du second vecteur : ")
+    FOR i FROM 0 TO n-1 DO
+        Read(v2[i])
+    END_FOR
+
+    // 🔥 Utilisation de la procédure
+    dot_product_proc(v1, v2, n, ps)
+
+    //  Affichage du produit scalaire
+    Write("Produit scalaire (procédure) :", ps)
+
+    //  Vérification de l'orthogonalité
+    IF ps = 0 THEN
+        Write("Les vecteurs sont orthogonaux")
+    ELSE
+        Write("Les vecteurs ne sont pas orthogonaux")
+    END_IF
+END
+
+// **************************** Fonction ****************************
+
+ALGORITHM DotProductFunc
+VAR
+    v1, v2: ARRAY[50] OF INTEGER  // Vecteurs
+    n, result: INTEGER  // Taille des vecteurs et produit scalaire
+    i: INTEGER
+
+    // FONCTION qui retourne directement le produit scalaire
+FUNCTION dot_product_func(v1, v2, n): INTEGER
+    DECLARE ps: INTEGER := 0
+    FOR i FROM 0 TO n-1 DO
+        ps := ps + (v1[i] * v2[i])
+    END_FOR
+    RETURN ps
+END_FUNCTION
+
+BEGIN
+    // Lecture de la taille du vecteur
+    Write("Entrez la taille des vecteurs : ")
+    Read(n)
+
+    // Lecture des éléments du premier vecteur
+    Write("Entrez les éléments du premier vecteur : ")
+    FOR i FROM 0 TO n-1 DO
+        Read(v1[i])
+    END_FOR
+
+    // Lecture des éléments du second vecteur
+    Write("Entrez les éléments du second vecteur : ")
+    FOR i FROM 0 TO n-1 DO
+        Read(v2[i])
+    END_FOR
+
+    //  Utilisation de la fonction
+    result := dot_product_func(v1, v2, n)
+
+    //  Affichage du produit scalaire
+    Write("Produit scalaire (fonction) :", result)
+
+    //  Vérification de l'orthogonalité
+    IF result = 0 THEN
+        Write("Les vecteurs sont orthogonaux")
+    ELSE
+        Write("Les vecteurs ne sont pas orthogonaux")
+    END_IF
+END
